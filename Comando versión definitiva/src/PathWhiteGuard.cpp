@@ -11,8 +11,8 @@ Enemy_PathWhiteGuard::Enemy_PathWhiteGuard(int x, int y, char* cpath) : Enemy(x,
 {
 	srand(time(NULL));
 	//Default Animation
-	default.PushBack({ 67,0,12,23 });
-	default.speed = 0.2f;
+	Default.PushBack({ 67,0,12,23 });
+	Default.speed = 0.2f;
 
 	//Die Animation
 	PathWhiteGuard_Die.PushBack({ 2, 68, 16, 26 });
