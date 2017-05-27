@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "ModuleSecretAreas.h"
-#include "SDL\include\SDL_rect.h"
+#include "SDL_rect.h"
 
 class ModuleFadeToBlack : public Module
 {
