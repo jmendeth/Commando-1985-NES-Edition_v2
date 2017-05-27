@@ -5,7 +5,7 @@ The objective of the project is to recreate the arcade game Commando the more ac
 developed, but our group only covers the 2nd Area and its secret rooms.
 
 
-##Description
+## Description
 
 Commando is a shoot-em-up vertically scrolling arcade game released by Capcom in 1986. The player takes control of a soldier named Super Joe, who starts by being dropped off in a jungle by a helicopter, and has to fight his way out 
 singlehandedly, fending off a massive assault of enemy soldiers and rescuing captives. Your weapons consist of a machine gun with unlimited shots and a limited supply of hand grenades that may be replenished by stealing from the enemy.
@@ -15,10 +15,33 @@ singlehandedly, fending off a massive assault of enemy soldiers and rescuing cap
 
 Unzip the realese folder and execute the .exe file.
 
+## Building with CMake
+
+Install SDL2, SDL2_image, SDL2_mixer and CMake. For instance, on Debian based systems:
+
+~~~ bash
+sudo apt-get install cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev
+~~~
+
+Build:
+
+~~~ bash
+cd 'Comando versión definitiva'
+mkdir build && cd build
+cmake ..
+make
+~~~
+
+Run with:
+
+~~~ bash
+cd .. # need to be on repo
+build/Commando-1985-NES-Edition
+~~~
 
 ## Usage
 
-###Movement keys (combine them to go in diagonal):
+### Movement keys (combine them to go in diagonal):
 
 Keyboard:
 
@@ -41,14 +64,14 @@ DPAD DOWN ➣ Move player down
 DPAD RIGHT ➣ Move player right
 
 
-###Shoot key:
+### Shoot key:
 
 Space bar ➣ Shoot
 
 Shift ➣ Shoot grenade
 
 
-###Other keys:
+### Other keys:
 
 Keyboard:
 
@@ -105,16 +128,16 @@ Gamepad:
 B button ➣ Quit the game
 
 
-##Win lose condition
+## Win lose condition
 
 Win ➣ Kill the boss at the end of the level.
 
 Lose ➣ Get shoot by an enemy, colliding with him, or falling into the water.
 
 
-##Changelist (LEVEL 2)
+## Changelist (LEVEL 2)
 
-###Version 0.1
+### Version 0.1
 
  - Menu where you can select to play the second stage or quit
  - Level 2 map implemented and moving correctly
@@ -122,7 +145,7 @@ Lose ➣ Get shoot by an enemy, colliding with him, or falling into the water.
  - One enemy with collider
  - Gamepad functionallity in the menu 
 
-###Version 0.2
+### Version 0.2
 
  - Secret Areas Implemented
  - Module PowerUps implemented (without the individual effects)
@@ -130,7 +153,7 @@ Lose ➣ Get shoot by an enemy, colliding with him, or falling into the water.
  - Enemy BossGrenades Implemented
  - Full Controller functionality
 
-###Version 0.3
+### Version 0.3
 
  - Enemies shot at you
  - Enemies respawn at their place
@@ -140,11 +163,11 @@ Lose ➣ Get shoot by an enemy, colliding with him, or falling into the water.
  - God mode added
 
 
-##Project wiki
+## Project wiki
 
 https://github.com/Jony635/Commando-1985-NES-Edition_v2/wiki
 
-##Project web
+## Project web
 
 https://jony635.github.io/Commando-1985-NES-Edition_v2/
 
