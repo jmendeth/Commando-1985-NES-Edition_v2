@@ -3,7 +3,7 @@
 
 #include "SDL_rect.h"
 
-#define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define LOG(...) log(__FILE__, __LINE__, __VA_ARGS__);
 void log(const char file[], int line, const char* format, ...);
 
 #define EXIT_FAILURE 1
@@ -53,7 +53,7 @@ enum PowerUp_Types
 	MAX_POWERUP_TYPE
 };
 
-float time_Counters[COUNTERS::MAX_COUNTER];
+static float time_Counters[COUNTERS::MAX_COUNTER];
 
 // Useful typedefs ---------
 typedef unsigned int uint;
