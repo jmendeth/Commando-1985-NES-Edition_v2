@@ -6,7 +6,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
-#include "SDL/include/SDL_timer.h"
+#include "SDL_timer.h"
 #include "ModulePlayer.h"
 #include "ModuleLvl2.h"
 #include "ModuleSecretAreas.h"
