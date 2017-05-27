@@ -7,9 +7,9 @@ Enemy_Bosslvl1::Enemy_Bosslvl1(int x, int y) : Enemy(x, y)
 {
 	srand(time(NULL));
 	//Default Animation
-	default.PushBack({ 177,54,15,23 });
-	default.PushBack({ 195,54,19,22 });
-	default.speed = 0.1f;
+	Default.PushBack({ 177,54,15,23 });
+	Default.PushBack({ 195,54,19,22 });
+	Default.speed = 0.1f;
 	//Die Animation
 	Bosslvl1_Die.PushBack({ 215, 55, 16, 26 });
 	Bosslvl1_Die.PushBack({ 232, 54, 16, 27 });
@@ -27,12 +27,12 @@ Enemy_Bosslvl1::Enemy_Bosslvl1(int x, int y) : Enemy(x, y)
 	//Collider
 	collider = App->collision->AddCollider({ 0, 0, 21, 22 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	//Default Animation
-	//animation = &default;
+	//animation = &Default;
 	//Path Definition
 	path.PushBack({ 0.8f, 0.8f }, 100, &Bosslvl1_Right);
 	path.PushBack({ 0.0f, -0.8f }, 100, &Bosslvl1_Right);
-	path.PushBack({ -0.8f, 0.8f }, 100, &default);
-	path.PushBack({ 0.0f, -0.8f }, 100, &default);
+	path.PushBack({ -0.8f, 0.8f }, 100, &Default);
+	path.PushBack({ 0.0f, -0.8f }, 100, &Default);
 }
 
 void Enemy_Bosslvl1::PathUp()
@@ -42,7 +42,7 @@ void Enemy_Bosslvl1::PathUp()
 	moving[MOVE_STATE::GOING_LEFT] = false;
 	moving[MOVE_STATE::GOING_RIGHT] = false;
 
-	path.PushBack({ 0, 0.3f }, 5, &default);
+	path.PushBack({ 0, 0.3f }, 5, &Default);
 	path.Reset();
 }
 
@@ -53,7 +53,7 @@ void Enemy_Bosslvl1::PathDown()
 	moving[MOVE_STATE::GOING_LEFT] = false;
 	moving[MOVE_STATE::GOING_RIGHT] = false;
 
-	path.PushBack({ 0, -0.3f }, 5, &default);
+	path.PushBack({ 0, -0.3f }, 5, &Default);
 	path.Reset();
 }
 
@@ -64,7 +64,7 @@ void Enemy_Bosslvl1::PathLeft()
 	moving[MOVE_STATE::GOING_LEFT] = true;
 	moving[MOVE_STATE::GOING_RIGHT] = false;
 
-	path.PushBack({ -0.3f, 0 }, 5, &default);
+	path.PushBack({ -0.3f, 0 }, 5, &Default);
 	path.Reset();
 }
 void Enemy_Bosslvl1::PathRight()

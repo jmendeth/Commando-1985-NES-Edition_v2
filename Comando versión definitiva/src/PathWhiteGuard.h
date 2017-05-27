@@ -12,7 +12,7 @@ private:
 	int original_y = 0;
 	int original_x = 0;
 
-	Animation default;
+	Animation Default;
 	Animation PathWhiteGuard_Die;
 	Animation PathWhiteGuard_Left;
 	Animation PathWhiteGuard_Right;

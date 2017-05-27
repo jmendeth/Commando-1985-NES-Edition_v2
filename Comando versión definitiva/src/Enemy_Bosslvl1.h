@@ -10,7 +10,7 @@ private:
 	bool going_up = true;
 	int original_y = 0;
 	int original_x = 0;
-	Animation default;
+	Animation Default;
 	Animation Bosslvl1_Die;
 	Animation Bosslvl1_Right;
 	bool moving[4];

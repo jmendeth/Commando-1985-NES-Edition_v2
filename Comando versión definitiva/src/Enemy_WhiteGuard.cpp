@@ -11,8 +11,8 @@ Enemy_WhiteGuard::Enemy_WhiteGuard(int x, int y) : Enemy(x, y)
 {
 	srand(time(NULL));
 	//Default Animation
-	default.PushBack({ 67,0,12,23 });
-	default.speed = 0.2f;
+	Default.PushBack({ 67,0,12,23 });
+	Default.speed = 0.2f;
 
 	//Die Animation
 	WhiteGuard_Die.PushBack({ 2, 68, 16, 26 });
