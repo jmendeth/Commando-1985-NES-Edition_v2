@@ -1,4 +1,7 @@
+#ifdef _WIN32
 #include <windows.h>
+#endif
+#include <stdarg.h>
 #include <stdio.h>
 
 void log(const char file[], int line, const char* format, ...)
@@ -9,8 +12,12 @@ void log(const char file[], int line, const char* format, ...)
 
 	// Construct the string from variable arguments
 	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
+	vsnprintf(tmp_string, 4096, format, ap);
 	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	snprintf(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+#ifdef _WIN32
 	OutputDebugString(tmp_string2);
+#else
+	fprintf(stderr, "%s\n", tmp_string2);
+#endif
 }
