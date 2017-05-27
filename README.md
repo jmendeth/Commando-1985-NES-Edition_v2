@@ -25,6 +25,31 @@ singlehandedly, fending off a massive assault of enemy soldiers and rescuing cap
 Unzip the release folder and execute the .exe file.
 
 
+## Building with CMake
+
+Install SDL2, SDL2_image, SDL2_mixer and CMake. For instance, on Debian based systems:
+
+~~~ bash
+sudo apt-get install cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev
+~~~
+
+Build:
+
+~~~ bash
+cd 'Comando versión definitiva'
+mkdir build && cd build
+cmake ..
+make
+~~~
+
+Run with:
+
+~~~ bash
+cd .. # need to be on repo
+build/Commando-1985-NES-Edition
+~~~
+
+
 ## Usage
 
 ### Movement keys (combine them to go in diagonal):
