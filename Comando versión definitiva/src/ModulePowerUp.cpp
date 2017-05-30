@@ -41,7 +41,7 @@ ModulePowerUp::ModulePowerUp()
 	grenadex4.speed = 0.08f;
 
 	grenadex5.PushBack({ 126,3,21,16 });
-	grenadex5.PushBack({ 102,3,21,16 });	
+	grenadex5.PushBack({ 102,3,21,16 });
 	grenadex5.PushBack({ 150,3,21,16 });
 	grenadex5.PushBack({ 175,4,21,16 });
 	grenadex5.speed = 0.08f;
@@ -221,7 +221,7 @@ PowerUp* ModulePowerUp::AddPowerUp(const PowerUp_Types type, int x, int y, bool 
 			powerup->collider->poweruptype = type;
 			powerup->type = type;
 			powerup->hidden = hidden;
-			if (label != "null") {
+			if (strcmp(label, "null") != 0) {
 				powerup->label = label;
 			}
 			powerups[i] = powerup;
@@ -265,11 +265,11 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 					powerups[i] = nullptr;
 					break;
 				case PowerUp_Types::GRENADEx4:
-					if (powerups[i]->label == "granade1")
+					if (strcmp(powerups[i]->label, "granade1") == 0)
 						App->powerups_taken[pu_taken_lvl2::granade1] = true;
-					if (powerups[i]->label == "granade2")
+					if (strcmp(powerups[i]->label, "granade2") == 0)
 						App->powerups_taken[pu_taken_lvl2::granade2] = true;
-					if (powerups[i]->label == "granade3")
+					if (strcmp(powerups[i]->label, "granade3") == 0)
 						App->powerups_taken[pu_taken_lvl2::granade3] = true;
 					if (powerups[i]->label == "granade4")
 						App->powerups_taken[pu_taken_lvl2::granade4] = true;
@@ -310,13 +310,13 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 					powerups[i] = nullptr;
 					break;
 				case PowerUp_Types::ALLY_CAPTURED:
-					if (powerups[i]->label == "ally1")
+					if (strcmp(powerups[i]->label, "ally1") == 0)
 						App->powerups_taken[pu_taken_lvl2::ally1] = true;
-					if (powerups[i]->label == "ally2")
+					if (strcmp(powerups[i]->label, "ally2") == 0)
 						App->powerups_taken[pu_taken_lvl2::ally2] = true;
-					if (powerups[i]->label == "hg")
+					if (strcmp(powerups[i]->label, "hg") == 0)
 						App->secretareas->hgcounter++;
-					if (powerups[i]->label == "mg")
+					if (strcmp(powerups[i]->label, "mg") == 0)
 						App->secretareas->mgcounter++;
 					App->player->score += 1000;
 					App->enemies->AddEnemy(ENEMY_TYPES::RUNNER, powerups[i]->position.x, powerups[i]->position.y);
