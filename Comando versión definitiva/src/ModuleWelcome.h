@@ -1,5 +1,5 @@
 #ifndef __MODULEWELCOME_H__
-#define __MODULEWELCOME__
+#define __MODULEWELCOME_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -41,4 +41,4 @@ public:
 
 };
 
-#endif // __MODULELVL2_H__
+#endif // __MODULEWELCOME_H__
