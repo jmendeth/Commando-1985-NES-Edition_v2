@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "SDL_mixer.h"
+#include "SDL/SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
 class ModuleAudio : public Module
