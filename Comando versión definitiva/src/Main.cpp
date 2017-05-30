@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "Globals.h"
 #include "MemLeaks.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 #include "SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -17,18 +20,17 @@ enum main_states
 };
 
 Application* App = nullptr;
+main_states state = MAIN_CREATION;
+int main_return = EXIT_FAILURE;
 
-int main(int argc, char* argv[])
-{
-	ReportMemoryLeaks();
-
-	int main_return = EXIT_FAILURE;
-	main_states state = MAIN_CREATION;
-
-	while (state != MAIN_EXIT)
-	{
+int loop_tick() {
 		switch (state)
 		{
+			case MAIN_EXIT:
+				delete App;
+				LOG("Bye :)\n");
+				return -1;
+
 			case MAIN_CREATION:
 			{
 				LOG("Application Creation --------------");
@@ -80,9 +82,22 @@ int main(int argc, char* argv[])
 			} break;
 
 		}
-	}
+		return 0;
+}
 
-	delete App;
-	LOG("Bye :)\n");
+void em_main_loop() {
+	if (loop_tick() == 0) return;
+	emscripten_cancel_main_loop();
+}
+
+int main(int argc, char* argv[])
+{
+	ReportMemoryLeaks();
+#ifdef __EMSCRIPTEN__
+	emscripten_set_main_loop(&em_main_loop, -1, 0);
+	return 0;
+#else
+	while (loop_tick() == 0);
 	return main_return;
+#endif
 }

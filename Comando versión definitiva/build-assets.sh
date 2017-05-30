@@ -4,7 +4,7 @@
 
 set -e
 
-grep -oE '"Resources\/[^"]+"' -rh | sort -u | python -c $'import sys\nfor l in sys.stdin: print eval(l)' > assets.txt
+grep -aoE '"Resources\/[^"]+"' -rh | sort -u | python -c $'import sys\nfor l in sys.stdin: print eval(l)' > assets.txt
 
 rm -rf assets 2> /dev/null
 
