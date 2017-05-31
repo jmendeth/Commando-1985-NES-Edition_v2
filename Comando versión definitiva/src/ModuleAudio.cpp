@@ -99,6 +99,7 @@ bool ModuleAudio::Stop()
 
 bool ModuleAudio::CleanUp()
 {
+	Mix_PauseMusic();
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 	if (soundtrack != NULL)
 	{
