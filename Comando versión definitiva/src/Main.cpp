@@ -85,15 +85,19 @@ int loop_tick() {
 		return 0;
 }
 
+#ifdef __EMSCRIPTEN__
 void em_main_loop() {
 	if (loop_tick() == 0) return;
 	emscripten_cancel_main_loop();
+	EM_ASM( gameExit() );
 }
+#endif
 
 int main(int argc, char* argv[])
 {
 	ReportMemoryLeaks();
 #ifdef __EMSCRIPTEN__
+	EM_ASM( gameReady() );
 	emscripten_set_main_loop(&em_main_loop, -1, 0);
 	return 0;
 #else

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Commando 1985 NES Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
       html, body {
         background-color: #222;
@@ -15,26 +16,54 @@
         width: 100%; height: 100%;
       }
 
-#loader {
-  cursor: default;
-  user-select: none;
-  user-drag: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0; left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+      #loader {
+        cursor: default;
+        user-select: none;
+        user-drag: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0; left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 3em;
+        text-align: center;
+      }
 
-#loader .status {
-  padding: 3em;
-  text-align: center;
+      #loader .status {
+        margin: 1em; 
+      }
+
+      #loader .progress {
+        position: relative;
+        width: 12em;
+        height: 0.1em;
+        background-color: #777;
+        align-self: center;
+      }
+
+      #loader .progress span {
+        display: block;
+        position: absolute;
+        top: 0; left: 0; height: 100%;
+        background-color: #ddd;
+      }
+
+      #loader .percentage {
+        color: #999;
+        font-weight: bold;
+        margin-right: 0.4em;
+      }
+
+#game {
+  z-index: 2;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
 }
 
 #canvas {
-  z-index: 2;
   border: 0px none;
   padding: 0;
   margin: 0;
@@ -59,17 +88,22 @@
         <span id="statusMessage">...</span>
         <noscript>JavaScript needed for this page.</noscript>
       </p>
+      <div class="progress"><span id="progressBar" style="width: 0%"></span></div>
     </div>
-  
-    <canvas id="canvas" oncontextmenu="event.preventDefault()" style="display: none"></canvas>
+
+    <div id="game" style="display: none">
+      <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
 
     <script type='text/javascript'>
       var statusElement = document.getElementById('statusMessage');
+      var progressElement = document.getElementById('progressBar');
+      var gameElement = document.getElementById('game');
       var canvasElement = document.getElementById('canvas');
 
       var Module = {
         preRun: [function(text) {
-          Module.setStatus("Loaded.");
+          Module.setStatus("Initializing...");
         }],
         postRun: [],
         print: function(text) {
@@ -91,22 +125,74 @@
           if (text === Module.setStatus.text) return;
           var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
           var now = Date.now();
-          if (m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
-          statusElement.innerHTML = text;
+          if (m && Module.setStatus.last - now < 30) return; // if this is a progress update, skip it if too soon
+
+          var parsed = parseStatus(text);
+          var html = parsed.reason + "...";
+          if (parsed.total) {
+            var percentage = Math.floor(parsed.done / parsed.total * 100);
+            html = '<span class="percentage">' + percentage + '%</span> ' + html;
+          }
+
+          statusElement.innerHTML = html;
+          recalcProgress(parsed);
+          Module.setStatus.last = { time: now, text: text, reason: parsed.reason };
         },
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
-          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-        },
-        onRuntimeInitialized: function() {
-          canvasElement.style = "";
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete');
         },
       };
+
+      function parseStatus(text) {
+        var m = /^([^(].*)\.\.\.+( \((\d+(\.\d+)?)\/(\d+)\))?$/.exec(text);
+        if (!m) return { reason: text };
+        if (!m[2]) return { reason: m[1] };
+        return { reason: m[1], done: parseInt(m[3]), total: parseInt(m[5]) };
+      }
+
+      var TRIGGERS_INDEX = {};
+      var TRIGGERS_TOTAL;
+      (function() {
+        var TRIGGERS = [
+          { reason: "Loading code", duration: 2 },
+          { reason: "Preparing", duration: 0.4 },
+          { reason: "Downloading data", duration: 14 },
+          { duration: 1 },
+          { reason: "Running" },
+        ];
+        var position = 0;
+        TRIGGERS.forEach(function(t) {
+          t.position = position;
+          if (t.reason) TRIGGERS_INDEX[t.reason] = t;
+          position += t.duration || 0;
+        });
+        TRIGGERS_TOTAL = position;
+      })();
+      var TOTAL_PROGRESS = 0;
+      function recalcProgress(parsed) {
+        if (!Object.hasOwnProperty.call(TRIGGERS_INDEX, parsed.reason)) return;
+        var t = TRIGGERS_INDEX[parsed.reason];
+        var progress = parsed.total ? parsed.done/parsed.total : 0;
+        progress = Math.min(Math.max(progress, 0), 1);
+        console.log("progress", progress);
+        var new_total_progress = (t.position + t.duration * progress) / TRIGGERS_TOTAL;
+        if (new_total_progress < TOTAL_PROGRESS) return;
+        progressElement.style.width = new_total_progress*100 + "%";
+      }
+
+      function gameReady() {
+        gameElement.style = "";
+      }
+      function gameExit() {
+        gameElement.style = "display: none";
+        statusElement.innerHTML = "Program has exited";
+      }
       Module.setStatus('Loading code...');
       window.onerror = function(event) {
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
-        Module.setStatus('<strong>Failed to load</strong>, exception thrown');
+        statusElement.innerHTML = '<strong>Failed to load</strong>, exception thrown';
       };
     </script>
     <script>
