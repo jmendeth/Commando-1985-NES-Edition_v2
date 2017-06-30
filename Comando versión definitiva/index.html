@@ -1,9 +1,22 @@
 <!doctype html>
-<html>
+<html prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="utf-8">
     <title>Commando 1985 NES Edition</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="description" content="A Commando remake, made by Flan Studio's team" />
+    	<meta property="og:description" content="Remake of Commando for NES, by Flan Studio's team" />
+	<meta itemprop="image" content="/commando/icon.jpg" />
+	<meta property="og:image" content="https://jmendeth.com/commando/icon.jpg" />
+	<meta property="og:title" content="Commando 1985 NES Edition" />
+	<meta property="og:type" content="video.other" />
+	<meta property="og:url" content="https://jmendeth.com/commando/" />
+	<meta property="og:site_name" content="jmendeth" />
+	
+	<meta property="twitter:card" content="summary" />
+	<meta property="twitter:title" content="Commando 1985 NES Edition" />
+	<meta property="twitter:description" content="Remake of Commando for NES, by Flan Studio's team" />
+	<meta property="twitter:image" content="/commando/icon.jpg" />
     <style>
       html, body {
         background-color: #222;
@@ -27,6 +40,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         padding: 3em;
         text-align: center;
       }
@@ -40,7 +54,6 @@
         width: 12em;
         height: 0.1em;
         background-color: #777;
-        align-self: center;
       }
 
       #loader .progress span {
@@ -54,6 +67,15 @@
         color: #999;
         font-weight: bold;
         margin-right: 0.4em;
+      }
+
+      .instructions {
+        margin: 2em;
+        padding: 0.6em 0.8em;
+        border: 1px solid #777;
+        border-radius: 0.5em;
+        line-height: 1.2;
+        color: #aaa;
       }
 
 #game {
@@ -89,6 +111,12 @@
         <noscript>JavaScript needed for this page.</noscript>
       </p>
       <div class="progress"><span id="progressBar" style="width: 0%"></span></div>
+      <p class="instructions">
+        <strong>Enter</strong> &mdash; select <br>
+        <strong>WASD</strong> &mdash; move <br>
+        <strong>Space</strong> &mdash; attack <br>
+        <strong>Left shift</strong> &mdash; grenade
+      </p>
     </div>
 
     <div id="game" style="display: none">
