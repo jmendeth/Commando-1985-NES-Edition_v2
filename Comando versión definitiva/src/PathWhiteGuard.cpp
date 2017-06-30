@@ -43,7 +43,7 @@ Enemy_PathWhiteGuard::Enemy_PathWhiteGuard(int x, int y, char* cpath) : Enemy(x,
 	original_pos.x = x;
 	original_pos.y = y;
 
-	if (cpath == "pathleft")
+	if (strcmp(cpath, "pathleft") == 0)
 	{
 		path.PushBack({ +0.8f, 0 }, 60, &PathWhiteGuard_Right);
 		path.PushBack({ 0, +0.8f }, 35 , &PathWhiteGuard_Down);
@@ -62,7 +62,7 @@ Enemy_PathWhiteGuard::Enemy_PathWhiteGuard(int x, int y, char* cpath) : Enemy(x,
 		path.PushBack({ -0.8f, 0 }, 75 , &PathWhiteGuard_Left);
 		path.PushBack({ 0, -0.8f }, 20 , &PathWhiteGuard_Up);
 	}
-	else if (cpath == "pathright")
+	else if (strcmp(cpath, "pathright") == 0)
 	{
 		path.PushBack({ +0.0f, 0.8f }, 100 *0.4, &PathWhiteGuard_Down);
 		path.PushBack({ -0.8f, 0.0f }, 40 *0.4, &PathWhiteGuard_Left);
@@ -74,7 +74,7 @@ Enemy_PathWhiteGuard::Enemy_PathWhiteGuard(int x, int y, char* cpath) : Enemy(x,
 		path.PushBack({ 0.8f, 0.0f }, 80 *0.4, &PathWhiteGuard_Right);
 	}
 
-	else if (cpath == "pathcenter")
+	else if (strcmp(cpath, "pathcenter") == 0)
 	{
 		path.PushBack({ +0.0f, 0.8f }, 40 , &PathWhiteGuard_Down);
 		path.PushBack({ 0.8f, 0.0f }, 40 , &PathWhiteGuard_Right);
